@@ -63,7 +63,7 @@ class Homepage_test(myunit.MyTest):
         self.menu_search_not_exist_case('ll')
 
     # 测试登出
-    def test_logout_01(self):
+    def test_logout(self):
         self.logout_case()
 
 if __name__ =="__main__":

@@ -112,6 +112,7 @@ class Func(object):
 		"""
 		element = self.find_element(locator)
 		element.click()
+		time.sleep(5)
 
 	def send_keys(self, locator, text) -> object:
 		"""

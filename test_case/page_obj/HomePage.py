@@ -81,6 +81,12 @@ class HomePage(Func):
         text = self.find_element(self.page_title_loc).text
         return text
 
+    # 跳转到employee information界面
+    def switch_to_EmpInfo(self):
+        self.click(self.Personnel_loc)
+        self.click(self.Emp_info_loc)
+        text = self.find_element(self.page_title_loc).text
+        return text
 
 if __name__ == '__main__':
     driver = webdriver.Firefox()
@@ -92,7 +98,8 @@ if __name__ == '__main__':
     LoginPage(driver).login(name, pwd)
     # homepage.input_search_menu('emp')
     # homepage.click_search_btn()
-    print(homepage.search_menu('leave'))
+    # print(homepage.search_menu('leave'))
     # print(homepage.logout())
-    # print(homepage.switch_to_homepage())
+    print(homepage.switch_to_EmpInfo())
+
 

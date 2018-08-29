@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 import time
 import os
 import yagmail
-# import xlrd
+import xlrd
 
 
 

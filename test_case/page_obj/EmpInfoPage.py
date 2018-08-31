@@ -3,7 +3,9 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 import time
 from test_case.page_obj.LoginPage import LoginPage
+from test_case.page_obj.HomePage import HomePage
 from selenium.common.exceptions import*
+
 
 class EmpInfoPage(Func):
 
@@ -18,9 +20,13 @@ class EmpInfoPage(Func):
     LastName_input_loc = ("id", "last_name")
     MailBox_input_loc = ("id", "add_email")
     AddPosition_btn_loc = ("xpath", "//*[@id='profile']/form/fieldset[1]/div[6]/div[1]/span/span/span[2]")
+    Position_loc = ("xpath", "//*[@id='profile']/form/fieldset[1]/div[6]/div[1]/span/span/input")
     Department_input_loc = ("id", "add_dept")
     HireDate_input_loc = ("id", "add_hiredate")
     Hiredate_btn_loc = ("xpath", "//*[@id='profile']/form/fieldset[2]/div[2]/div[2]/span/span/span")
+    Save_btn_loc = ("id", "addEmpSave")
+    closeSavePage_loc = ("xpath", "html/body/div[8]/div[1]/div/a")
+    # closeSavePage_loc = ("css selector", "div.k-window>div>div>a")
 
     # add position page
     zkteco_department_loc = ("xpath", "//*[@id='select_tree']/ul/li/div/span[2]")  # zkteco部门
@@ -54,3 +60,73 @@ class EmpInfoPage(Func):
     # 输入mailbox
     def input_Mailbox(self, mailbox):
         self.send_keys(self.MailBox_input_loc, mailbox)
+
+    # 点击选择position按键
+    def click_positionBtn(self):
+        self.click(self.AddPosition_btn_loc)
+
+    # 选择职位
+    def choose_position(self):
+        self.click(self.test_position_loc)
+
+    # 选择部门
+    def choose_department(self):
+        self.click(self.zkteco_department_loc)
+
+    # 点击OK保存
+    def click_OK(self):
+        self.click(self.confirmPostion)
+
+    # 点击 clear清除
+    def click_clear(self):
+        self.click(self.clearPosition)
+
+    # 输入雇用日期
+    def input_hireday(self, birthday):
+        self.send_keys(self.HireDate_input_loc, birthday)
+
+    # 点击雇用日期
+    def click_hiredayBtn(self):
+        self.click(self.Hiredate_btn_loc)
+
+    # 选择雇佣日期为当前日期
+    def click_currentday(self):
+        self.click(self.today)
+
+    # 设置position
+    def set_position(self):
+        self.click_positionBtn()
+        self.click(Department_input_loc)
+        #try:
+        element = self.find_element(self.selectError)
+        text = element.text
+        return text
+       # except TimeoutException:
+           # self.click_OK()
+           # return True
+
+
+
+
+if __name__ == '__main__':
+    driver = webdriver.Firefox()
+    EmpInfoPage = EmpInfoPage(driver)
+    EmpInfoPage.open('')
+    time.sleep(10)
+    name = "ricky.liu@zkteco.com"
+    pwd = "123456"
+    LoginPage(driver).login(name, pwd)
+    HomePage(driver).switch_to_EmpInfo()
+    EmpInfoPage.click_Add()
+    Department_input_loc = ("id", "add_dept")
+    text = EmpInfoPage.set_position(Department_input_loc)
+    # EmpInfoPage.click_positionBtn()
+    # EmpInfoPage.choose_department()
+    # selectError = ("id", "select_error")
+    # text = EmpInfoPage.find_element(selectError).text
+    # Department_input_loc = ("id", "add_dept")
+    # t = EmpInfoPage.set_position(Department_input_loc)
+    print(text)
+
+
+

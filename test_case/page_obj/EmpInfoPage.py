@@ -101,9 +101,9 @@ class EmpInfoPage(Func):
         element = self.find_element(self.selectError)
         text = element.text
         return text
-       # except TimeoutException:
-           # self.click_OK()
-           # return True
+        except TimeoutException:
+            self.click_OK()
+            return True
 
 
 

@@ -94,39 +94,66 @@ class EmpInfoPage(Func):
         self.click(self.today)
 
     # 设置position
-    def set_position(self):
+    def set_position(self, loc):
         self.click_positionBtn()
-        self.click(Department_input_loc)
-        #try:
-        element = self.find_element(self.selectError)
-        text = element.text
-        return text
-        except TimeoutException:
+        self.click(loc)
+        text = self.find_element(self.selectError).text
+        if text == "":
             self.click_OK()
-            return True
+        else:
+            return text
 
+    # 设置当前日期为雇佣日期
+    def set_hireday(self):
+        self.click_hiredayBtn()
+        self.click_currentday()
 
+    # def add_emp(self, ID, Firstname, Lastname, mailbox, hireday):
+    #     self.click_Add()
+    #     self.input_EmpID(ID)
+    #     self.input_FirstName(Firstname)
+    #     self.input_LastName(Lastname)
+    #     self.input_Mailbox(mailbox)
+    #     self.input_hireday(hireday)
+    #     self.set_position(loc=("xpath", "//*[@id='select_tree']/ul/li/ul/li[1]/div/span[2]"))
+    #     self.click(self.Save_btn_loc)
+
+    def test_input(self, inputkey):
+        input_map = {
+            "EmpID": self.input_EmpID,
+            "FirstName": self.input_FirstName,
+            "LastName": self.input_LastName,
+            "Mailbox": self.input_Mailbox,
+            "hireday": self.input_hireday,
+        }
+        return input_map[inputkey]
+
+    def add_Emp(self, input):
+        for inputkey, value in input:
+            self.test_input(inputkey)(value)
+        # self.click(self.Save_btn_loc)
 
 
 if __name__ == '__main__':
     driver = webdriver.Firefox()
     EmpInfoPage = EmpInfoPage(driver)
     EmpInfoPage.open('')
-    time.sleep(10)
+    time.sleep(5)
     name = "ricky.liu@zkteco.com"
     pwd = "123456"
     LoginPage(driver).login(name, pwd)
+    time.sleep(5)
     HomePage(driver).switch_to_EmpInfo()
+    # EmpInfoPage.add_emp("19940912", "dd", "hh", "2@qq.com", "2018-08-13")
     EmpInfoPage.click_Add()
-    Department_input_loc = ("id", "add_dept")
-    text = EmpInfoPage.set_position(Department_input_loc)
-    # EmpInfoPage.click_positionBtn()
-    # EmpInfoPage.choose_department()
-    # selectError = ("id", "select_error")
-    # text = EmpInfoPage.find_element(selectError).text
-    # Department_input_loc = ("id", "add_dept")
-    # t = EmpInfoPage.set_position(Department_input_loc)
-    print(text)
+    EmpInfoPage.add_Emp([("EmpID", "10099"), ("FirstName", "10099")])
+    # EmpInfoPage.input_EmpID("19940912")
+    # EmpID_input_loc = ("id", "add_no")
+    # value = EmpInfoPage.get_attribute(EmpID_input_loc, "value")
+    # print(value)
+    # Save_btn_loc = ("id", "addEmpSave")
+    # result = EmpInfoPage.is_clickable(Save_btn_loc)
+    # print(re)
 
 
 

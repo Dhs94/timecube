@@ -1,5 +1,5 @@
 # coding:utf-8
-from method import browser
+from test_case.module.method import browser
 import unittest
 import time
 

@@ -26,9 +26,9 @@ class HomePage(Func):
     System_loc = ('xpath', "//*[@id='side']/li[6]/a")  # sysstem 模块
 
     # personnel子项
-    Emp_info_loc = ('xpath', "//*[@id='side']/li[1]/ul/li[1]/a/span")  # personnel模块下的employee information
-    Import_emp_loc = ('xpath', "//*[@id='side']/li[1]/ul/li[2]/a/span")  # personnel模块下的import employee
-    structure_loc = ('xpath', "//*[@id='side']/li[1]/ul/li[3]/a/span")  # personnel模块下的structure
+    Emp_info_loc = ('xpath', "//*[@id='side']/li[1]/ul/li[1]/a")  # personnel模块下的employee information
+    Import_emp_loc = ('xpath', "//*[@id='side']/li[1]/ul/li[2]/a")  # personnel模块下的import employee
+    structure_loc = ('xpath', "//*[@id='side']/li[1]/ul/li[3]/a")  # personnel模块下的structure
     menu_search_result_loc = ('xpath', "//span[@class='ng-binding']")  # 菜单栏搜搜结果
     # menu_search_result_loc = ('css selector', 'li.ng-scope>a>span')
 
@@ -85,6 +85,7 @@ class HomePage(Func):
     def switch_to_EmpInfo(self):
         self.click(self.Personnel_loc)
         self.click(self.Emp_info_loc)
+        time.sleep(5)
         text = self.find_element(self.page_title_loc).text
         return text
 

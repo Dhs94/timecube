@@ -112,7 +112,7 @@ class Func(object):
 		"""
 		element = self.find_element(locator)
 		element.click()
-		time.sleep(5)
+
 
 	def send_keys(self, locator, text) -> object:
 		"""
@@ -133,7 +133,7 @@ class Func(object):
 		try:
 			result = WebDriverWait(self.driver, timeout, 1).until(EC.text_to_be_present_in_element(locator, text))
 		except TimeoutException:
-			print ("元素没定位到："+str(locator))
+			print("元素没定位到："+str(locator))
 			return False
 		else:
 			return result

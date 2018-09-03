@@ -15,7 +15,7 @@ class Login_test(myunit.MyTest):
         expect_result = expect
         self.assertEqual(result, expect_result)
 
-    @data(*method.get_excel(r'D:\py_scripts\timecube\data\test_login.xlsx'))
+    @data(*method.get_excel(r'D:\PycharmProjects\timecube\data\test_login.xlsx'))
     @unpack
     def test_login1(self, iterm, username, pwd, expect):
         self.login_case(iterm, username, pwd, expect)

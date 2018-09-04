@@ -5,6 +5,7 @@ import time
 from test_case.page_obj.LoginPage import LoginPage
 from test_case.page_obj.HomePage import HomePage
 from selenium.common.exceptions import*
+import re
 
 
 class EmpInfoPage(Func):
@@ -27,6 +28,9 @@ class EmpInfoPage(Func):
     Save_btn_loc = ("id", "addEmpSave")
     closeSavePage_loc = ("xpath", "html/body/div[8]/div[1]/div/a")
     # closeSavePage_loc = ("css selector", "div.k-window>div>div>a")
+    Add_success_loc = ("xpath", "html/body/div[7]/div/div")
+    Input_error_loc = ("xpath", "//*[@id='extAlertDialog']/div/div[2]")
+    # Add_success_loc = ("class", "k - notification - wrap")
 
     # add position page
     zkteco_department_loc = ("xpath", "//*[@id='select_tree']/ul/li/div/span[2]")  # zkteco部门
@@ -118,6 +122,7 @@ class EmpInfoPage(Func):
     #     self.set_position(loc=("xpath", "//*[@id='select_tree']/ul/li/ul/li[1]/div/span[2]"))
     #     self.click(self.Save_btn_loc)
 
+    # 输入框输入对应的值
     def test_input(self, inputkey):
         input_map = {
             "EmpID": self.input_EmpID,
@@ -127,11 +132,34 @@ class EmpInfoPage(Func):
             "hireday": self.input_hireday,
         }
         return input_map[inputkey]
-
+    # 添加人员
     def add_Emp(self, input):
+        self.click_Add()
+        # 设置职位为test
+        self.set_position(loc=("xpath", "//*[@id='select_tree']/ul/li/ul/li[1]/div/span[2]"))
+
+        # 输入值
         for inputkey, value in input:
             self.test_input(inputkey)(value)
-        # self.click(self.Save_btn_loc)
+
+        # 获取输入框的值
+        # ID = self.get_attribute(self.EmpID_input_loc, "value")
+        # Fname = self.get_attribute(self.FirstName_input_loc, "value")
+        # Lname = self.get_attribute(self.LastName_input_loc, "value")
+        # Mbox = self.get_attribute(self.MailBox_input_loc, "value")
+        # Hireday = self.get_attribute(self.MailBox_input_loc, "value")
+        self.click(self.Save_btn_loc)
+        # 判断添加失败原因
+        # try:
+        #     element = self.find_element(self.Add_success_loc)
+        #     return element
+        # except TimeoutException:
+        #     if ID and Fname and Lname and Mbox and Hireday:
+        #         if re.match(r'[a-zA-Z0-9\.]+@[a-zA-Z0-9]+.com$', Mbox):
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -145,8 +173,11 @@ if __name__ == '__main__':
     time.sleep(5)
     HomePage(driver).switch_to_EmpInfo()
     # EmpInfoPage.add_emp("19940912", "dd", "hh", "2@qq.com", "2018-08-13")
-    EmpInfoPage.click_Add()
-    EmpInfoPage.add_Emp([("EmpID", "10099"), ("FirstName", "10099")])
+    EmpInfoPage.add_Emp([("EmpID", "20099"), ("FirstName", "10099"), ("LastName", "10099"), ("Mailbox", "@q.com"),
+                         ("hireday", "2018-08-10")])
+    # Add_success_loc = ("xpath", "html/body/div[7]/div/div")
+    # text = EmpInfoPage.find_element(Add_success_loc).text
+    # print(text)
     # EmpInfoPage.input_EmpID("19940912")
     # EmpID_input_loc = ("id", "add_no")
     # value = EmpInfoPage.get_attribute(EmpID_input_loc, "value")
@@ -154,6 +185,14 @@ if __name__ == '__main__':
     # Save_btn_loc = ("id", "addEmpSave")
     # result = EmpInfoPage.is_clickable(Save_btn_loc)
     # print(re)
+    # table_loc = ("xpath", "//*[@id='user_grid']/div[2]/table/tbody")
+    # next_page_loc = ("xpath", "//*[@id='user_grid']/div[3]/a[3]")
+    # for i in range(3):
+    #     table = EmpInfoPage.find_element(table_loc)
+    #     datas = table.text
+    #     print(datas)
+    #     EmpInfoPage.click(next_page_loc)
+    #     time.sleep(3)
 
 
 

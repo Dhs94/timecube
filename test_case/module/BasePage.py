@@ -12,54 +12,54 @@ import xlrd
 
 
 
-def browser(browser):
-	"""
-	打开浏览器函数，"firefox"、"chrome"、"ie"、"phantomjs"
-	"""
-	try:
-		if browser == "firefox":
-			driver = webdriver.Firefox()
-			return driver
-		elif browser == "chrome":
-			driver = webdriver.Chrome()
-			return driver
-		elif browser == "ie":
-			driver = webdriver.Ie()
-			return driver
-		elif browser == "phantomjs":
-			driver = webdriver.PhantomJS()
-			return driver
-		else:
-			print("Not found this browser,You can enter 'firefox', 'chrome', 'ie' or 'phantomjs'")
-	except Exception as msg:
-		print("%s" % msg)
+# def browser(browser):
+# 	"""
+# 	打开浏览器函数，"firefox"、"chrome"、"ie"、"phantomjs"
+# 	"""
+# 	try:
+# 		if browser == "firefox":
+# 			driver = webdriver.Firefox()
+# 			return driver
+# 		elif browser == "chrome":
+# 			driver = webdriver.Chrome()
+# 			return driver
+# 		elif browser == "ie":
+# 			driver = webdriver.Ie()
+# 			return driver
+# 		elif browser == "phantomjs":
+# 			driver = webdriver.PhantomJS()
+# 			return driver
+# 		else:
+# 			print("Not found this browser,You can enter 'firefox', 'chrome', 'ie' or 'phantomjs'")
+# 	except Exception as msg:
+# 		print("%s" % msg)
+#
+#
+# def send_mail(receiver, content, attachment):
+# 	yag = yagmail.SMTP(user="282410983@qq.com", password="bafkcomzsnixcaec", host="smtp.qq.com")
+# 	# 邮件正文 yag.send(接受者，邮件主题，邮件正文，附件)
+# 	yag.send(receiver, "来自dhs的邮件", content, attachment)
+#
+#
+# 	# 发送测试报告
+# def send_report(receiver, content, filename):
+# 	yag = yagmail.SMTP(user="282410983@qq.com", password="bafkcomzsnixcaec", host="smtp.qq.com")
+# 	base_dir = os.path.dirname(os.path.dirname(__file__))
+# 	base_dir = str(base_dir)
+# 	attachment = base_dir + "/reports/" + filename
+# 	yag.send(receiver, "来自dhs的邮件", content, attachment)
+#
+#
+# def get_excel(file):
+# 	rows = []
+# 	data = xlrd.open_workbook(file)
+# 	sheet = data.sheet_by_index(0)
+# 	for row in range(1, sheet.nrows):
+# 		rows.append(list(sheet.row_values(row)))
+# 	return rows
 
 
-def send_mail(receiver, content, attachment):
-	yag = yagmail.SMTP(user="282410983@qq.com", password="bafkcomzsnixcaec", host="smtp.qq.com")
-	# 邮件正文 yag.send(接受者，邮件主题，邮件正文，附件)
-	yag.send(receiver, "来自dhs的邮件", content, attachment)
-
-
-	# 发送测试报告
-def send_report(receiver, content, filename):
-	yag = yagmail.SMTP(user="282410983@qq.com", password="bafkcomzsnixcaec", host="smtp.qq.com")
-	base_dir = os.path.dirname(os.path.dirname(__file__))
-	base_dir = str(base_dir)
-	attachment = base_dir + "/reports/" + filename
-	yag.send(receiver, "来自dhs的邮件", content, attachment)
-
-
-def get_excel(file):
-	rows = []
-	data = xlrd.open_workbook(file)
-	sheet = data.sheet_by_index(0)
-	for row in range(1, sheet.nrows):
-		rows.append(list(sheet.row_values(row)))
-	return rows
-
-
-class Func(object):
+class BasePage(object):
 	"""
 	基于原生的selenium框架做了二次封装.
 	"""
@@ -114,7 +114,7 @@ class Func(object):
 		element.click()
 
 
-	def send_keys(self, locator, text) -> object:
+	def send_keys(self, locator, text):
 		"""
 		发送文本，清空后输入
 		Usage:
@@ -301,30 +301,4 @@ class Func(object):
 
 	# 发送邮件函数
 
-if __name__ == '__main__':
-	# # if下面的代码都是测试调试的代码，自测内容
-	# driver = browser('chrome')
-	# driver_n = Func(driver)
-	# # 返回类的实例：打开浏览器
-	# driver_n.open("http://www.weibo.com")
-	# # 打开url，顺便判断打开的页面对不对
-	# # input_loc = ("id", "kw")
-	# # print (driver_n.get_title())
-	# # el = driver_n.find_element(input_loc)
-	# # driver_n.send_keys(input_loc, "yoyo")
-	# #  = ("id", "su")
-	# # driver_n.click(button_loc)
-	# # print driver_n.text_in_element(("name", "tj_trmap"), "地图")
-	# # set_loc = ("link text", "设置")
-	# # driver_n.move_to_element(set_loc)
-	# username_loc = ("id", "loginname")
-	# psw_loc = ("name", "password")
-	# submit_loc = ("class name", "W_btn_a")
-	# driver_n.send_keys(username_loc, "282410983@qq.com")
-	# driver_n.send_keys(psw_loc, "unique.85183310")
-	# driver_n.click(submit_loc)
-	# time.sleep(5)
-	# result = driver_n.find_elements("class name", "S_txt1")[8].text
-	# print(result)
-	t =get_excel(r'D:\\py_scripts\\timecube\\data\\test_login.xlsx')
-	print(t)
+

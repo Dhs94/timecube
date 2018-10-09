@@ -4,7 +4,28 @@ import os
 import yagmail
 import xlrd
 
-# 读取excel数据
+
+def browser(browser):
+    """
+    打开浏览器函数，"firefox"、"chrome"、"ie"、"phantomjs"
+    """
+    try:
+        if browser == "firefox":
+            driver = webdriver.Firefox()
+            return driver
+        elif browser == "chrome":
+            driver = webdriver.Chrome(r"D:\chrome\chromedriver.exe")
+            return driver
+        elif browser == "ie":
+            driver = webdriver.Ie()
+            return driver
+        elif browser == "phantomjs":
+            driver = webdriver.PhantomJS()
+            return driver
+        else:
+            print("Not found this browser,You can enter 'firefox', 'chrome', 'ie' or 'phantomjs'")
+    except Exception as msg:
+        print("%s" % msg)
 
 
 # 截图函数
@@ -43,8 +64,8 @@ def get_excel(file):
         rows.append(list(sheet.row_values(row)))
     return rows
 
-if __name__ == "__main__":
-    print(get_excel(r'C:\Users\Administrator\Desktop\test.xlsx'))
+
+
 
 
 

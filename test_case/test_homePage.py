@@ -3,13 +3,13 @@ import unittest
 from selenium import webdriver
 from test_case.page_obj.LoginPage import LoginPage
 from test_case.page_obj.HomePage import HomePage
-from test_case.module import myunit, method
+from test_case.module import myunit, BasePage
 from ddt import ddt, unpack, data
 
 
 class Homepage_test(myunit.MyTest):
-    name = "ricky.liu@zkteco.com"
-    pwd = "123456"
+    # name = "ricky.liu@zkteco.com"
+    # pwd = "123456"
     # 菜单存在
     def menu_search_exist_case(self, info):
         homepage = HomePage(self.driver)

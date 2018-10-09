@@ -1,4 +1,4 @@
-from test_case.module.method import Func
+from test_case.module.BasePage import BasePage
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 import time
@@ -6,7 +6,7 @@ from test_case.page_obj.LoginPage import LoginPage
 from selenium.common.exceptions import*
 
 
-class HomePage(Func):
+class HomePage(BasePage):
 
     # 导航栏
     logo_loc = ('xpath', 'html/body/header/a')  # timecube logo
@@ -38,14 +38,17 @@ class HomePage(Func):
     page_title_loc = ('css selector', 'div#navcontent>div>span')
 
     def input_search_menu(self, info):
+        """输入搜索字符"""
         self.send_keys(self.MenuSearch_input_loc, info)
 
     def click_search_btn(self):
+        """点击搜索按钮"""
         self.click(self.MenuSearch_btn_loc)
         time.sleep(10)
 
-    # 导航栏搜索结果
+
     def get_menu_search_result(self):
+        """获取搜索结果"""
         try:
             result = self.find_elements(self.menu_search_result_loc)
             results = []
@@ -56,18 +59,20 @@ class HomePage(Func):
             # text = "don't exist"
             return False
 
-    # 导航栏搜索
+
     def search_menu(self, info):
+        """菜单搜索流程"""
         self.input_search_menu(info)
         self.click_search_btn()
         result = self.get_menu_search_result()
         return result
 
     def click_logout(self):
+        """点击登出按钮"""
         self.click(self.logOff_loc)
 
-    # 登出
     def logout(self):
+        """登出"""
         self.click_logout()
         try:
             element = self.find_element(self.logOff_loc)
@@ -75,17 +80,18 @@ class HomePage(Func):
         except TimeoutException:
             return True
 
-    # 跳转到主界面
     def switch_to_homepage(self):
+        """跳转到homepage"""
         self.click(self.logo_loc)
         text = self.find_element(self.page_title_loc).text
         return text
 
-    # 跳转到employee information界面
+
     def switch_to_EmpInfo(self):
+        """跳转到人员信息界面"""
         self.click(self.Personnel_loc)
         self.click(self.Emp_info_loc)
-        time.sleep(5)
+        time.sleep(2)
         text = self.find_element(self.page_title_loc).text
         return text
 

@@ -134,7 +134,7 @@ class EmpInfoPage(BasePage):
         arr = []
         # 按行查询表格的数据，取出的数据是一整行，按空格分隔每一列的数据
         loc = ("xpath", "//*[@id='user_grid']/div[2]/table/tbody/tr")
-        for i in range(5):
+        for i in range(2):
             # 获取4页的人员列表
             table_tr_list = self.find_elements(loc)
             for tr in table_tr_list:
@@ -190,13 +190,6 @@ class EmpInfoPage(BasePage):
         #             return("EMP lost")
 
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
     driver = webdriver.Firefox()
     EmpInfoPage = EmpInfoPage(driver)
@@ -207,8 +200,8 @@ if __name__ == '__main__':
     LoginPage(driver).login(name, pwd)
     HomePage(driver).switch_to_EmpInfo()
     # t = EmpInfoPage.add_Emp([("EmpID", "23331"), ("FirstName", "23331"), ("LastName", "23331"), ("Mailbox", "23331@q.com"),("hireday", "2018-08-10")])
-
-    EmpInfoPage.add_Emp("23342", "", "23342", "23342@q.com", "2018-08-10")
+    t = EmpInfoPage.get_allTableContent()
+    print(t)
     # if t == "":
     #     print("yes")
     # else:
